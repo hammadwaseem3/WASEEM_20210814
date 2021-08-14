@@ -1,7 +1,11 @@
 package com.company.waseem_20210814.controller;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.FileAlreadyExistsException;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.validation.ConstraintViolationException;
 import javax.validation.constraints.NotEmpty;
@@ -22,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.company.waseem_20210814.dto.VideoDto;
 import com.company.waseem_20210814.exception.EntityNotFoundException;
 import com.company.waseem_20210814.exception.FileUploadException;
 import com.company.waseem_20210814.exception.InValidVideoFormatException;
@@ -49,23 +54,33 @@ public class VideoController {
             @RequestParam @NotNull @NotEmpty String title,
             @RequestParam("category_id") @NotNull Integer categoryId,
             @RequestParam("file") MultipartFile video)
-            throws InValidVideoFormatException, FileUploadException, EntityNotFoundException, FileAlreadyExistsException {
+            throws InValidVideoFormatException, FileUploadException, EntityNotFoundException, IOException {
         if(!video.getOriginalFilename().endsWith(".mp4") && !video.getOriginalFilename().endsWith(".mov") ) {
             throw new InValidVideoFormatException();
         }
         var category = videoCategoryService.findById(categoryId);
-
         var filePath = storageService.store(video);
-        videoService.save(title, category, filePath);
+        var isSuccessful = videoService.save(title, category, filePath);
+        if(!isSuccessful) {
+            storageService.delete(filePath);
+        }
 
     }
 
-    //TODO need to figure out the return type
     @GetMapping("/{id}")
-    public Resource getVideo(@PathVariable final Integer id) throws EntityNotFoundException, MalformedURLException {
+    public Map<String, String> getVideo(@PathVariable final Integer id) throws EntityNotFoundException, IOException {
         var filePath = videoService.findById(id).getFilePath();
+        Resource file = storageService.load(filePath);
+        return Map.of("path", file.getFile().getAbsolutePath());
+    }
 
-        return storageService.load(filePath);
+    @GetMapping("/all")
+    public List<VideoDto> getAllVideo() {
+        return
+            videoService.findAll()
+                .stream()
+                .map(video -> new VideoDto(video.getId(), video.getTitle(), video.getCategory().getName()))
+                .collect(Collectors.toList());
     }
 
 

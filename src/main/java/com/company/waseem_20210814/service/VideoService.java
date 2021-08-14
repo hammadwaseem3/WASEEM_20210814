@@ -1,5 +1,7 @@
 package com.company.waseem_20210814.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.company.waseem_20210814.entity.Video;
@@ -16,10 +18,16 @@ public class VideoService {
         this.videoRepository = videoRepository;
     }
 
-    public void save(final String title, final VideoCategory category, final String filePath) {
+    public boolean save(final String title, final VideoCategory category, final String filePath) {
         //TODO generate thumbnails
-        var video = new Video(title, category, filePath);
-        videoRepository.save(video);
+        try {
+            var video = new Video(title, category, filePath);
+            videoRepository.save(video);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
     }
 
     public Video findById(final Integer id) throws EntityNotFoundException {
@@ -28,5 +36,9 @@ public class VideoService {
             throw new EntityNotFoundException("video not found");
         }
         return optionalVideo.get();
+    }
+
+    public List<Video> findAll() {
+        return videoRepository.findAll();
     }
 }
