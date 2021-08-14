@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class Video {
 
     @Id
-    private String id;
+    private Integer id;
 
     private String title;
 

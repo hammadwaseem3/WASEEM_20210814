@@ -12,6 +12,6 @@ public class  VideoCategory {
     @Id
     private Integer id;
 
-    private String categoryName;
+    private String name;
 
 }
