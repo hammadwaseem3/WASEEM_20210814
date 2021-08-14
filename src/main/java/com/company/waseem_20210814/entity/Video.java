@@ -1,10 +1,14 @@
 package com.company.waseem_20210814.entity;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
@@ -26,6 +30,18 @@ public class Video {
     private VideoCategory category;
 
     private String filePath;
+
+    @OneToMany(
+            fetch = FetchType.EAGER,
+            mappedBy = "video",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<VideoThumbnail> thumbnails;
+
+    public Video(final Integer id) {
+        this.id = id;
+    }
 
     public Video(final String title, final VideoCategory category, final String filePath) {
         this.title = title;

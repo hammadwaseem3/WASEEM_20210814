@@ -1,6 +1,8 @@
 package com.company.waseem_20210814.service;
 
+import java.io.IOException;
 import java.util.List;
+
 
 import org.springframework.stereotype.Service;
 
@@ -13,16 +15,18 @@ import com.company.waseem_20210814.repository.VideoRepository;
 public class VideoService {
 
     private VideoRepository videoRepository;
+    private ThumbnailService thumbnailService;
 
-    public VideoService(final VideoRepository videoRepository) {
+    public VideoService(final VideoRepository videoRepository, final ThumbnailService thumbnailService) throws IOException {
         this.videoRepository = videoRepository;
+        this.thumbnailService = thumbnailService;
     }
 
     public boolean save(final String title, final VideoCategory category, final String filePath) {
-        //TODO generate thumbnails
         try {
             var video = new Video(title, category, filePath);
-            videoRepository.save(video);
+            video = videoRepository.save(video);
+            thumbnailService.createThumbnailAsync(filePath, video.getId());
             return true;
         } catch (Exception e) {
             return false;
