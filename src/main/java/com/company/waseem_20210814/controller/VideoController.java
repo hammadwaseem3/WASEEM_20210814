@@ -17,6 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MissingServletRequestParameterException;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,6 +38,7 @@ import com.company.waseem_20210814.service.VideoService;
 @RestController
 @RequestMapping("video")
 @Validated
+@CrossOrigin(origins = "*") //Its not safe to do because server is vulnerable but for the sake of test project I am doing it
 public class VideoController {
 
     private StorageService storageService;

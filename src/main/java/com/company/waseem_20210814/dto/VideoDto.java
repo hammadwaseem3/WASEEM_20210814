@@ -21,7 +21,9 @@ public class VideoDto {
         this.title = title;
         this.category = category;
         this.thumbnails = thumbnails.stream()
-                        .map(thumbnail -> new VideoThumbnailDto(thumbnail.getFilePath(), thumbnail.getSize()))
+                //ideally localhost path should not be append here but I am limited to use local file storage otherwise solution can be more
+                // elegant using proper CDN
+                        .map(thumbnail -> new VideoThumbnailDto( "http://localhost:8080/file" + thumbnail.getFilePath(), thumbnail.getSize()))
                         .collect(Collectors.toList());
     }
 }

@@ -1,0 +1,14 @@
+<div class="row margin-left margin-right margin-top">
+  <button mat-button (click)="openAddModal()">Upload Video</button>
+</div>
+
+<div class="row margin-left margin-right">
+  <div *ngFor="let video of videos" class="col-md-3 margin-top">
+    <div class="card cursor-pointer">
+      <div class="card-body text-center">
+        <img [src]="video.thumbnails[1].filePath" alt="image" width="256px" height="256px">
+      </div>
+      <h5 class="card-title text-center">{{video.title}}</h5>
+    </div>
+  </div>
+</div>

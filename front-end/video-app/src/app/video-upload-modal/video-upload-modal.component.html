@@ -1,0 +1,24 @@
+<div>
+  <h5>Upload Button</h5>
+  <button>Close</button>
+</div>
+<div>
+  <input [(ngModel)]="title" placeholder="Title" /><br>
+
+  <div class="col">
+    <div ngbDropdown class="d-inline-block">
+      <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Toggle dropdown</button>
+      <div *ngFor="let category of categoryModelList"  ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        <div>
+          <button (click)="onCategoryId(category.id)" ngbDropdownItem>{{category.name}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <input
+    type="file"
+    (change)="handleFileInput($event)"
+    accept="video/mp4,video/mov"
+  />
+</div>
