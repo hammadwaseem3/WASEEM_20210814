@@ -25,6 +25,11 @@ public class LocalFileSystemStorageService implements StorageService {
         this.pathToUpload = Paths.get(path);
     }
 
+    public LocalFileSystemStorageService(String path) throws IOException {
+        Files.createDirectories(Path.of(path));
+        this.pathToUpload = Paths.get(path);
+    }
+
     private Path pathToUpload;
 
     @Override

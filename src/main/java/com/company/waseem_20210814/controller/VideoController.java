@@ -1,8 +1,6 @@
 package com.company.waseem_20210814.controller;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.nio.file.FileAlreadyExistsException;
 import java.util.List;
@@ -13,7 +11,6 @@ import javax.validation.ConstraintViolationException;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -34,7 +31,6 @@ import com.company.waseem_20210814.exception.EntityNotFoundException;
 import com.company.waseem_20210814.exception.FileUploadException;
 import com.company.waseem_20210814.exception.InValidVideoFormatException;
 import com.company.waseem_20210814.service.StorageService;
-import com.company.waseem_20210814.service.ThumbnailService;
 import com.company.waseem_20210814.service.VideoCategoryService;
 import com.company.waseem_20210814.service.VideoService;
 
@@ -129,7 +125,7 @@ public class VideoController {
     private ResponseEntity<String> getResponseEntity(Exception exception, HttpStatus status) {
         var message = "{ \"message\": \""+exception.getMessage()+"\"}";
         return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
+                .status(status)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(message);
     }
