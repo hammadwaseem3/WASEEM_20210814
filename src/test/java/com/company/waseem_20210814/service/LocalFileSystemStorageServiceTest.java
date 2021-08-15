@@ -1,17 +1,14 @@
 package com.company.waseem_20210814.service;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.nio.file.FileAlreadyExistsException;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.rules.TemporaryFolder;
 import org.springframework.mock.web.MockMultipartFile;
 

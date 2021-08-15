@@ -4,7 +4,6 @@ import static com.company.waseem_20210814.mock.VideoCategoryMock.getVideoCategor
 import static com.company.waseem_20210814.mock.VideoMock.getVideoMock;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;

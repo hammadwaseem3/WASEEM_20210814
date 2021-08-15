@@ -85,7 +85,7 @@ public class VideoServiceTest {
     }
 
     @Test
-    public void findAll() throws EntityNotFoundException {
+    public void findAll() {
         var videos = getVideoMock();
 
         when(videoRepository.findAll()).thenReturn(videos);
