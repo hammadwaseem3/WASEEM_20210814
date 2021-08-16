@@ -38,6 +38,7 @@ for this api
 ``curl --location --request GET 'http://localhost:8080/file/<PATH TO THUMBNAIL>.png'``
 
 ###Note
+
 FrontEnd is not yet completed, since I have only weekend to work on
 
 Backend is completed, but there is chance for improvement as I mention above CDN is the right way to solve the problem
